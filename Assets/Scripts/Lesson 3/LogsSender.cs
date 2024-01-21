@@ -10,12 +10,15 @@ namespace Logger
 
         
         private float currentTime;
-        private void Update(){
+        private void Update()
+        {
             currentTime += Time.deltaTime;
-            if(currentTime > 1){
+            if(currentTime > 1)
+            {
                 currentTime = 0;
 
-                foreach(var loggers in _loggers){
+                foreach(var loggers in _loggers)
+                {
                     loggers.Print("hi");
                 }
             }
