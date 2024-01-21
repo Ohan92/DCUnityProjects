@@ -35,7 +35,7 @@ namespace Logger
 
                 
 
-                //writer.Write(log + $"\n {System.DateTime.Now} \n {this}");
+                
             }   
             
         }
