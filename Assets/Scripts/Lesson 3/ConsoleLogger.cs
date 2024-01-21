@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using static Unity.VisualScripting.Cooldown;
 
@@ -15,7 +17,7 @@ namespace Logger
 
         public void Print(string log)
         {
-           Debug.Log(log + $"\n {System.DateTime.Now} \n {this}");
+           Debug.Log($"\n [{DateTime.Now.ToString(CultureInfo.InvariantCulture)}] :: {GetType().Name} Logged: {log}");
         }
     }
 }
