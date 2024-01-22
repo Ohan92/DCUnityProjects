@@ -1,28 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Globalization;
-using System;
 
-namespace Logger
+namespace Lesson3
 {
     public class UiTextLogger : MonoBehaviour, ILogger
     {
-        [SerializeField] Text textLogger;
+        [SerializeField] private Text textLogger;
 
-        [SerializeField] LogsSender logsSender;
+        [SerializeField] private LogsSender _logsSender;
 
         private void Awake()
         {
-            logsSender.Register(this);
+            _logsSender.Register(this);
+            textLogger.text = " ";
         }
 
         public void Print(string log)
         {
-            //textLogger.text = log + $"\n {System.DateTime.Now} \n {this}";
-            textLogger.text += $"\n [{DateTime.Now.ToString(CultureInfo.InvariantCulture)}] :: {GetType().Name} Logged: {log}";
+            
+            textLogger.text = textLogger.text + "\n" + log;     
         }
     }
 }

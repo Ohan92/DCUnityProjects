@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d879a57513964f642a0368d434c88b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logsSender: {fileID: 1575145326}
+  _logsSender: {fileID: 1575145326}
 --- !u!4 &523823959
 Transform:
   m_ObjectHideFlags: 0
@@ -344,7 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b306f20cef8318543b8b0e8223f89e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logsSender: {fileID: 1575145326}
+  _logsSender: {fileID: 1575145326}
 --- !u!4 &1165225164
 Transform:
   m_ObjectHideFlags: 0
@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textLogger: {fileID: 1101836059}
-  logsSender: {fileID: 1575145326}
+  _logsSender: {fileID: 1575145326}
 --- !u!4 &1522243636
 Transform:
   m_ObjectHideFlags: 0
