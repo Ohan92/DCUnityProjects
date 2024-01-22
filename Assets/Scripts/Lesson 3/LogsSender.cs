@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,13 +14,13 @@ namespace Logger
         private void Update()
         {
             currentTime += Time.deltaTime;
-            if(currentTime > 1)
+            if(currentTime >= 1f)
             {
                 currentTime = 0;
 
                 foreach(var loggers in _loggers)
                 {
-                    loggers.Print("hi");
+                    loggers.Print(loggers.GetType().Name + " " + DateTime.Now.ToString());
                 }
             }
         }
