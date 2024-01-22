@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,19 +7,27 @@ namespace Lesson5
 {
     public class UiTextLogger : AbstractLogger
     {
-        [SerializeField] Text textLogger;
-        
+        [SerializeField] private Text textLogger;
+        [SerializeField] private ReactiveLogger reactiveLogger;
 
-        [SerializeField] LogsSender logsSender;
-
-        private void Awake()
+        private void OnEnable()
         {
-            logsSender.Register(this);
+            if (reactiveLogger != null)
+            {
+                reactiveLogger.OnLog += Print;
+            }
         }
 
-        public override void Print(LogType logType,string log)
+        private void OnDisable()
         {
-            //textLogger.text = log + $"\n {System.DateTime.Now} \n {this}";
+            if (reactiveLogger != null)
+            {
+                reactiveLogger.OnLog -= Print;
+            }
+        }
+
+        public override void Print(LogType logType, string log)
+        {
             textLogger.text += $"\n {logType}:[{DateTime.Now.ToString(CultureInfo.InvariantCulture)}] :: {GetType().Name} Logged: {log}";
         }
     }

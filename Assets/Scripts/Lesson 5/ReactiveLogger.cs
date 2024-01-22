@@ -1,21 +1,31 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lesson5
 {
     public class ReactiveLogger : MonoBehaviour
     {
-        public Action<LogType,string> OnLog;
-    }
+        public event Action<LogType, string> OnLog;
 
-   public enum LogType 
-    {
-        Log,
-        Warning,
-        Error
+        private void Start()
+        {
+            StartCoroutine(SendLogs());
+        }
+
+        private IEnumerator SendLogs()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(1f);
+
+                OnLog?.Invoke(LogType.Log, "Log Message");
+                yield return new WaitForSeconds(1f);
+                OnLog?.Invoke(LogType.Warning, "Warning Message");
+                yield return new WaitForSeconds(1f);
+                OnLog?.Invoke(LogType.Error, "Error Message");
+            }
+        }
     }
 
 }
-

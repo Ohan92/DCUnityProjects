@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using UnityEngine;
 
@@ -9,40 +6,49 @@ namespace Lesson5
 {
     public class FileLogger : AbstractLogger
     {
-            private  string filePath = Application.dataPath + "/LogLesson4.txt";
+        [SerializeField] private ReactiveLogger reactiveLogger;
+        private string path;
 
-            [SerializeField] LogsSender logsSender;
-            
-            
-
-            private void Awake()
+        private void OnEnable()
+        {
+            if (reactiveLogger != null)
             {
-                if(!File.Exists(filePath))
-                {
-                    File.Create(filePath);
-                }
-                    logsSender.Register(this);
-                
+                reactiveLogger.OnLog += Print;
             }
+        }
 
-            public override void Print(LogType logType,string log)
+        private void OnDisable()
+        {
+            if (reactiveLogger != null)
+            {
+                reactiveLogger.OnLog -= Print;
+            }
+        }
+
+        private void Awake()
+        {
+            
+            path = Path.Combine(Application.dataPath, "Scripts", "Lesson5");
+            Directory.CreateDirectory(path);
+
+            path = Path.Combine(path, "Log.txt");
+
+            if (!File.Exists(path))
             {
                 
-                    using(StreamWriter writer = new StreamWriter(filePath, true))
-                
-                
-                {
-                    writer.WriteLine ($"{logType}:[{DateTime.Now.ToString(CultureInfo.InvariantCulture)}] :: {GetType().Name} Logged: {log}");
-
-                    
-
-                    
-                }   
-                
+                File.Create(path).Close();
             }
+            
+            File.WriteAllText(path, "");
+        }
+
+        public override void Print(LogType logsType, string log)
+        {
+            if (logsType == logType)
+            {
+                log = log + "\n";
+                File.AppendAllText(path, log);
+            }
+        }
     }
 }
-
-
-
-

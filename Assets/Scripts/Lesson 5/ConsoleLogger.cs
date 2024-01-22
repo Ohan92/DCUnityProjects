@@ -1,23 +1,33 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
 
 namespace Lesson5
 {
     public class ConsoleLogger : AbstractLogger
     {
-        [SerializeField] LogsSender logsSender;
-        
+        [SerializeField] private ReactiveLogger reactiveLogger;
 
-        private  void Awake(){
-            logsSender.Register(this);
+        private void OnEnable()
+        {
+            if (reactiveLogger != null)
+            {
+                reactiveLogger.OnLog += Print;
+            }
         }
 
-        public override void Print(LogType logType,string log)
+        private void OnDisable()
         {
-           Debug.Log($"\n {logType}:[{DateTime.Now.ToString(CultureInfo.InvariantCulture)}] :: {GetType().Name} Logged: {log}");
+            if (reactiveLogger != null)
+            {
+                reactiveLogger.OnLog -= Print;
+            }
+        }
+
+        public override void Print(LogType type, string message)
+        {
+            if (type == logType)
+            {
+                Debug.Log($"[Console] [{type}] {message}");
+            }
         }
     }
 }
