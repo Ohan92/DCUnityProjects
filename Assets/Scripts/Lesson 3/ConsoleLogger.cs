@@ -11,13 +11,13 @@ namespace Logger
     {
         [SerializeField] LogsSender logsSender;
 
-        private void Awake(){
-            logsSender.Register(this);
-        }
-
-        public void Print(string log)
+       public void Print (string log) 
         {
-           Debug.Log($"\n [{DateTime.Now.ToString(CultureInfo.InvariantCulture)}] :: {GetType().Name} Logged: {log}");
+            Debug.Log(log);
+        }
+        private void Awake ()
+        {
+            logsSender.Register(this);
         }
     }
 }
